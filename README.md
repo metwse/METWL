@@ -1,6 +1,12 @@
 # METWL
 A dependency-free binary-based lightweight and minimal data serialization library.
 
+## Usage
+```js
+METWL.dump(Any-Object)
+METWL.parse(METWL-data (Array, ArrayBuffer, Uint8Array))
+```
+
 
 ## Byte structure:
 | byte> | 00 | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | ...
