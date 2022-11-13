@@ -8,7 +8,9 @@ METWL.parse(METWL-data (Array, ArrayBuffer, Uint8Array))
 ```
 
 
-## Byte structure:
+## METWL Standart Structure 
+
+### Byte structure:
 | byte> | 00 | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | ...
 | --: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
 | **1** |  | ... |  |  | 0 | 0 | 0 | ... |  | ... |  |  | 0 | 0 | 0 | ... |
@@ -21,7 +23,7 @@ METWL.parse(METWL-data (Array, ArrayBuffer, Uint8Array))
 | **8** | 0 | 0 | 0 | 1 | 0 | 0 | 0 | ... | 0 | 0 | 0 | 1 | 0 | 0 | 0 | ... |
 | bit^ | `length` | `length` | `length` | &nbsp;`type`&nbsp; | &nbsp;`data`&nbsp; | &nbsp;`data`&nbsp; | &nbsp;`data`&nbsp; | &nbsp;`data`&nbsp; | `length` | `length` | `length` | &nbsp;`type`&nbsp; | &nbsp;`data`&nbsp; | &nbsp;`data`&nbsp; | &nbsp;`data`&nbsp; |  
  
-## Types
+### Types
  |type|    name    |length required|
 |:--:|:----------:|:-------------:|
 | 0  |    int     |        ✓       |
