@@ -31,7 +31,7 @@ METWL = {
             return 8
         },
 
-        D(o /* dumper */ {
+        D(o) /* dumper */ {
             var m = Object.keys(this.m).find((k, _, m) => this.m[k] === o)
             if (m) return [(m << 1) | 1]
             var d, t = this.t(o)
