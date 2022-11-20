@@ -15,7 +15,7 @@ METWL = {
             var n = a.reduceRight(a.length > 3 ? ((p, c, i) => BigInt(p) | (BigInt(c) << BigInt((a.length - i - 1) * 7))) : ((p, c, i, a) => p | (c << ((a.length - i - 1) * 7))))
             return n < Number.MAX_SAFE_INTEGER ? Number(n) : n
         },
-        
+
         m /* mapped types */: { '6': true, '7': false, '8': null, '12': [], '13': {}, '14': Infinity, '15': -Infinity },
         l(l) /* length-type uint8array */ { var a = []; for (let i = 0; i < Math.floor(Math.log2(l) / 7) + 1; i++) a.unshift(((l >> (7 * i)) & 127) << 1); return a },
 
@@ -31,7 +31,7 @@ METWL = {
             return 8
         },
 
-        D(o) /* dumper */ {
+        D(o, M) /* dumper */ {
             var m = Object.keys(this.m).find((k, _, m) => this.m[k] === o)
             if (m) return [(m << 1) | 1]
             var d, t = this.t(o)
@@ -50,10 +50,10 @@ METWL = {
                     break
                 case 11: d = this.ua(o.getTime()); break
             }
-            return ([0, 1, 4, 5, 9, 10, 11].includes(t) ? this.l(d.length) : []).concat([(t << 1) | 1], d ? d : [])
+            return (!M && [0, 1, 4, 5, 9, 10, 11].includes(t) ? this.l(d.length) : []).concat([(t << 1) | 1], d ? d : [])
         },
 
-        P(d) /* paraser */ {
+        P(d, M) /* paraser */ {
             var l = [], t = 0
             for (let i = 0; i < d.length; i++) {
                 if ((d[0] | 1) == d[0]) { t = d.shift() >> 1; break }
@@ -61,9 +61,11 @@ METWL = {
             }
             if (this.m[t] !== undefined) return this.m[t]
             else {
-                if (t == 2) l = 4; else if (t == 3) l = 8
-                else l = l.length ? this.au7(l) : 0
-                d = d.splice(0, Number(l))
+                if (!M) {
+                    if (t == 2) l = 4; else if (t == 3) l = 8
+                    else l = l.length ? this.au7(l) : 0
+                    d = d.splice(0, Number(l))
+                }
                 switch (t) {
                     case 0: return this.au(d)
                     case 1: var num = this.au(d); return num * (typeof num == 'number' ? -1 : -1n)
@@ -78,6 +80,6 @@ METWL = {
             }
         }
     },
-    dump(o) { return new Uint8Array(this.u.D(o)) },
-    parse(d) { return this.u.P(Array.from(Object.getPrototypeOf(d) == ArrayBuffer.prototype ? new Uint8Array(d) : d)) }
+    dump(o) { return new Uint8Array(this.u.D(o, true)) },
+    parse(d) { return this.u.P(Array.from(Object.getPrototypeOf(d) == ArrayBuffer.prototype ? new Uint8Array(d) : d), true) }
 }
